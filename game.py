@@ -28,6 +28,7 @@ class SnakeGame:
         self.level = None
         self.snake = [(GRID_W//2, GRID_H//2)]
         self.direction = DIRS['RIGHT']
+        self.next_direction = DIRS['RIGHT']   # queued input
         self.food = self.new_food()
         self.score = 0
         self.game_over = False
@@ -62,13 +63,13 @@ class SnakeGame:
                         return False
                 else:
                     if event.key == pygame.K_UP and self.direction != DIRS['DOWN']:
-                        self.direction = DIRS['UP']
+                        self.next_direction = DIRS['UP']
                     elif event.key == pygame.K_DOWN and self.direction != DIRS['UP']:
-                        self.direction = DIRS['DOWN']
+                        self.next_direction = DIRS['DOWN']
                     elif event.key == pygame.K_LEFT and self.direction != DIRS['RIGHT']:
-                        self.direction = DIRS['LEFT']
+                        self.next_direction = DIRS['LEFT']
                     elif event.key == pygame.K_RIGHT and self.direction != DIRS['LEFT']:
-                        self.direction = DIRS['RIGHT']
+                        self.next_direction = DIRS['RIGHT']
                     elif event.key == pygame.K_ESCAPE:
                         self.menu = True
         return True
@@ -76,6 +77,7 @@ class SnakeGame:
     def reset_game(self):
         self.snake = [(GRID_W//2, GRID_H//2)]
         self.direction = DIRS['RIGHT']
+        self.next_direction = DIRS['RIGHT']   # ADD THIS LINE
         self.food = self.new_food()
         self.score = 0
         self.game_over = False
@@ -83,6 +85,8 @@ class SnakeGame:
     def update(self):
         if self.game_over or self.menu:
             return
+        
+        self.direction = self.next_direction
             
         # Move snake
         head_x, head_y = self.snake[0]
