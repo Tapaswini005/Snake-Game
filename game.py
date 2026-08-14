@@ -121,7 +121,7 @@ class SnakeGame:
             
         elif self.game_over:
             # Game over screen
-            game_over = self.font.render("GAME OVER", True, RED)
+            game_over = self.font.render("You Lost", True, RED)
             score_text = self.font.render(f"Score: {self.score}", True, WHITE)
             restart = self.font.render("SPACE - Menu", True, YELLOW)
             
